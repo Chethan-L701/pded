@@ -1,3 +1,4 @@
+// program to convert videos into frame with appropriate error handling
 use std::env;
 use std::fs;
 use std::process;
