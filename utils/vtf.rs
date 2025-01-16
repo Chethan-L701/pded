@@ -11,7 +11,7 @@ fn vtf(path: &String, output: &String) {
 
     // create the full path for the video frames folder
     let output_path = format!(
-        "{}/{}-frames",
+        "{}/{}",
         output,
         path.split('/').last().unwrap().split('.').nth(0).unwrap()
     );
@@ -43,7 +43,7 @@ fn vtf(path: &String, output: &String) {
                     &path,
                     "-vf",
                     "fps=5",
-                    &format!("{}/frame_%4d.jpg", output_path),
+                    &format!("{}/frame_%5d.jpg", output_path),
                 ])
                 .output()
                 .unwrap();
@@ -65,14 +65,22 @@ fn vtf(path: &String, output: &String) {
 
 fn main() {
     let objective = String::from(env::args().nth(1).unwrap());
+    let classification = String::from(env::args().nth(2).unwrap());
 
     if &objective != "train" && &objective != "test" {
-        println!("unknown object {{train | test}} : {}", objective);
+        println!("unknown objective {{train | test}} : {}", objective);
+        process::exit(1);
+    }
+    if &classification != "normal" && &classification != "anomaly" {
+        println!(
+            "unknown classification type {{normal | anomaly}} : {}",
+            classification
+        );
         process::exit(1);
     }
 
-    let video_root = String::from(format!("./assets/res/{}", objective));
-    let output_root = String::from(format!("./assets/out/{}", objective));
+    let video_root = String::from(format!("./videos/{}/{}", objective, classification));
+    let output_root = String::from(format!("./resources/{}/{}", objective, classification));
 
     println!("objective : {objective}\nvideo root : {video_root} \noutput root : {output_root}");
 

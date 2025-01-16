@@ -29,6 +29,7 @@
                 ];
                 shellHook = ''
                     echo "welcome the the pded project environment"
+                    export PATH=$PATH:$PWD/bin
                     export NIX_DEV_SHELL='pded'
                     export CUDA_PATH='${pkgs.cudatoolkit}'
                     export XLA_FLAGS='--xla_gpu_cuda_data_dir=${pkgs.cudatoolkit}'

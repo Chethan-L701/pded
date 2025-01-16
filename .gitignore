@@ -3,5 +3,6 @@ lib64
 include
 scripts
 bin
-assets
+videos
+resources
 *.vim
